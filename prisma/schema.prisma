@@ -13,11 +13,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  password String 
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+model User {
+  id               Int           @id @default(autoincrement())
+  name             String
+  email            String        @unique
+  password         String
+  createdAt        DateTime      @default(now())
+  updateAt         DateTime      @updatedAt
+  user_transaction Transaction[]
+}
+
+model Menu {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       Int
+  category    Category @default(Makanan)
+  description String
+  createdAt   DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+enum Category {
+  Makanan
+  Minuman
+  Snack
+}
+
+enum Payment {
+  CASH
+  QRIS
+}
+
+model Transaction {
+  id            Int                  @id @default(autoincrement())
+  total         Int
+  paymentMethod Payment              @default(QRIS)
+  createdAt     DateTime             @default(now())
+  updateAt      DateTime             @updatedAt
+  User          User?                @relation(fields: [userId], references: [id])
+  userId        Int?
+  detail        Detail_Transaction[]
+}
+
+model Detail_Transaction {
+  id            Int          @id @default(autoincrement())
+  quantity      Int
+  subTotal      Int
+  createdAt     DateTime     @default(now())
+  updateAt      DateTime     @updatedAt
+  Transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  transactionId Int?
 }
