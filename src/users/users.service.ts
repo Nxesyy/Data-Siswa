@@ -5,7 +5,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-  findAll: any;
   constructor(private Prisma: PrismaService){}
   
  async create(createUserDto: CreateUserDto) {
@@ -32,6 +31,24 @@ export class UsersService {
       };
     }
   }
+  
+  async findAll(){
+    try{
+      const users = await this.Prisma.user.findMany()
+       return {
+        succes: true,
+        message: 'user data found succesfully',
+        data: users,
+      };
+    } catch (eror) {
+      return {
+        succes: false,
+        massage: `eror when get user ${eror.message}`,
+        data: null,
+      };
+    }
+  }
+  
 
   findOne(id: number) {
     return `This action returns a #${id} user`;

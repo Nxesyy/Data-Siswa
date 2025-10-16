@@ -13,54 +13,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id               Int           @id @default(autoincrement())
-  name             String
-  email            String        @unique
-  password         String
-  createdAt        DateTime      @default(now())
-  updateAt         DateTime      @updatedAt
-  user_transaction Transaction[]
-}
-
-model Menu {
-  id          Int      @id @default(autoincrement())
-  name        String
-  price       Int
-  category    Category @default(Makanan)
-  description String
-  createdAt   DateTime @default(now())
-  updateAt    DateTime @updatedAt
-}
-
 enum Category {
   Makanan
-  Minuman
-  Snack
 }
 
-enum Payment {
-  CASH
-  QRIS
+model User {
+  id             Int         @id @default(autoincrement())
+  name           String
+  email          String      @unique
+  password       String
+  createAt       DateTime    @default(now())
+  updateAt       DateTime    @updatedAt
+  user_transaksi transaksi[]
 }
 
-model Transaction {
-  id            Int                  @id @default(autoincrement())
-  total         Int
-  paymentMethod Payment              @default(QRIS)
-  createdAt     DateTime             @default(now())
-  updateAt      DateTime             @updatedAt
-  User          User?                @relation(fields: [userId], references: [id])
-  userId        Int?
-  detail        Detail_Transaction[]
+model transaksi {
+  id_transaksi      Int              @id @default(autoincrement())
+  tanggal           Int
+  no_invoice        String
+  id_pelanggan      Int
+  total             Decimal
+  status_bayar      String
+  metode_bayar      String
+  User              User?            @relation(fields: [userId], references: [id])
+  userId            Int?
+  detailTransaksi   detailTransaksi? @relation(fields: [detailTransaksiId], references: [id])
+detailTransaksiId Int?
 }
 
-model Detail_Transaction {
-  id            Int          @id @default(autoincrement())
-  quantity      Int
-  subTotal      Int
-  createdAt     DateTime     @default(now())
-  updateAt      DateTime     @updatedAt
-  Transaction   Transaction? @relation(fields: [transactionId], references: [id])
-  transactionId Int?
+model detailTransaksi {
+  id             Int         @id @default(autoincrement())
+  kuantitas      Int
+  subtotal       Int
+  createdAt      DateTime    @default(now())
+  updateAt       DateTime    @updatedAt
+  menu           menu?       @relation(fields: [menuId], references: [id])
+  menuId         Int?
+  user_transaksi transaksi[]
+}
+
+model menu {
+  id              Int               @id @default(autoincrement())
+  name            String
+  price           Int
+  category        Category          @default(Makanan)
+  description     String
+  createdAt       DateTime          @default(now())
+  updateAt        DateTime          @updatedAt
+  Detailtransaksi detailTransaksi[]
 }
