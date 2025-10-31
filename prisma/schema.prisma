@@ -38,7 +38,7 @@ model transaksi {
   User              User?            @relation(fields: [userId], references: [id])
   userId            Int?
   detailTransaksi   detailTransaksi? @relation(fields: [detailTransaksiId], references: [id])
-detailTransaksiId Int?
+  detailTransaksiId Int?
 }
 
 model detailTransaksi {
