@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { BcryptService } from 'src/bcrypt/bcrypt.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { BcryptService } from '../bcrypt/bcrypt.service';
 
 
 @Injectable()
@@ -72,7 +72,7 @@ export class UsersService {
           name: name ?? findUser.name,
           email: email ?? findUser.name,
           //password: password ?? findUser.name
-          password: password ? await this.bcrypt.hashPassword(password): findUser.password
+          password: password ? await this.bcrypt.hashPassword(password) : findUser.password
         }
       })
 
