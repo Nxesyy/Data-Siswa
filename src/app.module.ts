@@ -7,10 +7,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { BcryptService } from './bcrypt/bcrypt.service';
 import { BcryptModule } from './bcrypt/bcrypt.module';
 import { AuthModule } from './auth/auth.module';
-import { HelperModule } from './helper/helper.module';
-
 @Module({
-  imports: [SiswaModule, UsersModule, PrismaModule, BcryptModule, AuthModule, HelperModule],
+  imports: [SiswaModule, UsersModule, PrismaModule, BcryptModule, AuthModule],
   controllers: [AppController],
   providers: [AppService, BcryptService],
 })

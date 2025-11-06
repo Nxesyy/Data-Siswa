@@ -1,17 +1,22 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-import { IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsOptional, IsString, IsStrongPassword } from 'class-validator';
+import { UserRole } from '@prisma/client';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
-     @IsOptional()
+        @IsOptional()
         @IsString()
         name: string
-    
+
         @IsOptional()
         @IsEmail()
         email: string
-    
-       @IsOptional()
+
+        @IsOptional()
         @IsStrongPassword()
         password: string
+
+        @IsOptional()
+        @IsStrongPassword()
+        role: UserRole;
 }
