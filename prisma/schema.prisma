@@ -15,6 +15,8 @@ datasource db {
 
 enum Category {
   Makanan
+  Minuman
+  Snack
 }
 
 enum UserRole {

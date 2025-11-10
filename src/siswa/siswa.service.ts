@@ -5,11 +5,11 @@ import { Siswa } from './entities/siswa.entity';
 
 @Injectable()
 export class SiswaService {
-  private readonly siswa:CreateSiswaDto[] = [];
+  private readonly siswa: CreateSiswaDto[] = [];
   create(createSiswaDto: CreateSiswaDto): Siswa {
     this.siswa.push(createSiswaDto)
     return 'This action adds a new siswa'
-    
+
   }
 
   findAll() {
@@ -18,7 +18,7 @@ export class SiswaService {
   }
 
   findOne(nisn: string) {
-    return this.siswa.find((siswa)=> siswa.nisn === nisn);
+    return this.siswa.find((siswa) => siswa.nisn === nisn);
   }
 
   update(id: number, updateSiswaDto: UpdateSiswaDto) {

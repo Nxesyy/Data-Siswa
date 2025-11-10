@@ -7,8 +7,9 @@ import { PrismaModule } from './prisma/prisma.module';
 import { BcryptService } from './bcrypt/bcrypt.service';
 import { BcryptModule } from './bcrypt/bcrypt.module';
 import { AuthModule } from './auth/auth.module';
+import { MenuModule } from './menu/menu.module';
 @Module({
-  imports: [SiswaModule, UsersModule, PrismaModule, BcryptModule, AuthModule],
+  imports: [SiswaModule, UsersModule, PrismaModule, BcryptModule, AuthModule, MenuModule],
   controllers: [AppController],
   providers: [AppService, BcryptService],
 })
